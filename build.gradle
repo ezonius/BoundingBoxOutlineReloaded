@@ -7,8 +7,12 @@ buildscript {
         }
     }
     dependencies {
-        classpath "net.fabricmc:fabric-loom:0.2.5-SNAPSHOT"
+        classpath "net.fabricmc:fabric-loom:0.2.6-SNAPSHOT"
     }
+}
+
+plugins {
+    id 'maven-publish'
 }
 
 apply plugin: 'fabric-loom'
@@ -16,16 +20,16 @@ apply plugin: 'java'
 apply plugin: 'idea'
 
 group 'com.irtimaled'
-version project.buildVersion + '-' + project.mcVersion
+version project.buildVersion + '-' + project.minecraft_version
 archivesBaseName = 'BBOutlineReloaded'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    minecraft 'com.mojang:minecraft:' + project.mcVersion
-    mappings 'net.fabricmc:yarn:' + project.mcVersion + '+build.3'
-    modCompile 'net.fabricmc:fabric-loader:0.7.2+build.175'
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}"
+    modCompile "net.fabricmc:fabric-loader:${project.loader_version}"
 }
 
 minecraft {
@@ -40,4 +44,12 @@ processResources {
 
 afterEvaluate {
     remapJar.classifier = 'fabric'
+}
+
+publishing {
+    // select the repositories you want to publish to
+    repositories {
+        // uncomment to publish to the local maven
+        mavenLocal()
+    }
 }
