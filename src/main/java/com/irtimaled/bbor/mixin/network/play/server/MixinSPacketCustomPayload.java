@@ -17,7 +17,7 @@ public abstract class MixinSPacketCustomPayload {
     @Shadow
     private Identifier channel;
 
-    @Redirect(method = "apply", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/listener/ClientPlayPacketListener;onCustomPayload(Lnet/minecraft/client/network/packet/CustomPayloadS2CPacket;)V"))
+    @Redirect(method = "apply", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/listener/ClientPlayPacketListener;onCustomPayload(Lnet/minecraft/network/packet/s2c/play/CustomPayloadS2CPacket;)V"))
     private void processPacket(ClientPlayPacketListener netHandlerPlayClient, CustomPayloadS2CPacket packet) {
         String channelName = channel.toString();
         if (channelName.startsWith("bbor:")) {
