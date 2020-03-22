@@ -20,8 +20,8 @@ apply plugin: 'java'
 apply plugin: 'idea'
 
 group 'com.irtimaled'
-version project.buildVersion + '-' + project.minecraft_version
-archivesBaseName = 'BBOutlineReloaded'
+version project.buildVersion + (forkAuthor ? "-${forkAuthor}" : "")
+archivesBaseName = 'BBOutlineReloaded' + '-' + project.minecraft_version
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8

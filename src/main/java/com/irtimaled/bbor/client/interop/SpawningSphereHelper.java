@@ -77,7 +77,7 @@ public class SpawningSphereHelper {
         return spawnBlockState.allowsSpawning(world, down, isNether ? EntityType.ZOMBIFIED_PIGLIN : entityType) &&
                 !Block.isFaceFullSquare(collisionShape, Direction.UP) &&
                 !upperBlockState.emitsRedstonePower() &&
-                !upperBlockState.matches(BlockTags.RAILS) &&
+                !upperBlockState.isIn(BlockTags.RAILS) &&
                 collisionShape.getMaximum(Direction.Axis.Y) <= 0 &&
                 upperBlockState.getFluidState().isEmpty() &&
                 (isNether || world.getLightLevel(LightType.BLOCK, pos) <= 7);

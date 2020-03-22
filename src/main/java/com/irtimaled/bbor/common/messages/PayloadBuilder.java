@@ -3,11 +3,10 @@ package com.irtimaled.bbor.common.messages;
 import com.irtimaled.bbor.common.models.Coords;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.Packet;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket;
 import net.minecraft.network.packet.s2c.play.CustomPayloadS2CPacket;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.PacketByteBuf;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiFunction;

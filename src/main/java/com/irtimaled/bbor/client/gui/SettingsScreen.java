@@ -177,7 +177,7 @@ public class SettingsScreen extends Screen {
     }
 
     private void drawScreen(int top, int bottom) {
-        this.client.getTextureManager().bindTexture(DrawableHelper.BACKGROUND_LOCATION);
+        this.client.getTextureManager().bindTexture(DrawableHelper.BACKGROUND_TEXTURE);
 
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_FOG);
