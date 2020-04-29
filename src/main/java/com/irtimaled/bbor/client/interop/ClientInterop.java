@@ -13,9 +13,12 @@ import com.irtimaled.bbor.common.EventBus;
 import com.irtimaled.bbor.common.TypeHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.server.command.CommandSource;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.*;
@@ -27,11 +30,12 @@ public class ClientInterop {
         EventBus.publish(new DisconnectedFromRemoteServer());
     }
 
-    public static void render(float partialTicks, ClientPlayerEntity player) {
+    public static void render(MatrixStack matrixStack, float partialTicks, ClientPlayerEntity player) {
         Player.setPosition(partialTicks, player);
-        ClientRenderer.render(player.dimension.getRawId());
+        ClientRenderer.render(matrixStack, player.dimension.getRawId());
     }
 
+    @Environment(EnvType.CLIENT)
     public static boolean interceptChatMessage(String message) {
         if (message.startsWith("/bbor:")) {
             ClientPlayNetworkHandler connection = MinecraftClient.getInstance().getNetworkHandler();
@@ -45,19 +49,19 @@ public class ClientInterop {
                     if (exception.getInput() != null && exception.getCursor() >= 0) {
                         Text suggestion = new LiteralText("")
                                 .formatted(Formatting.GRAY)
-                                .styled(style -> style.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, message)));
+                                .styled(style -> style.withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, message)));
                         int textLength = Math.min(exception.getInput().length(), exception.getCursor());
                         if (textLength > 10) {
-                            suggestion.append("...");
+                            ((LiteralText)suggestion).append("...");
                         }
 
-                        suggestion.append(exception.getInput().substring(Math.max(0, textLength - 10), textLength));
+                        ((LiteralText)suggestion).append(exception.getInput().substring(Math.max(0, textLength - 10), textLength));
                         if (textLength < exception.getInput().length()) {
-                            suggestion.append(new LiteralText(exception.getInput().substring(textLength))
+                            ((LiteralText)suggestion).append(new LiteralText(exception.getInput().substring(textLength))
                                     .formatted(Formatting.RED, Formatting.UNDERLINE));
                         }
-
-                        suggestion.append(new TranslatableText("command.context.here")
+    
+                        ((LiteralText)suggestion).append(new TranslatableText("command.context.here")
                                 .formatted(Formatting.RED, Formatting.ITALIC));
                         commandSource.sendError(suggestion);
                     }

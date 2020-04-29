@@ -5,12 +5,13 @@ import com.irtimaled.bbor.common.models.BoundingBoxMobSpawner;
 import com.irtimaled.bbor.common.models.Colors;
 import com.irtimaled.bbor.common.models.Coords;
 import com.irtimaled.bbor.config.ConfigManager;
+import net.minecraft.client.util.math.MatrixStack;
 
 import java.awt.*;
 
 public class MobSpawnerRenderer extends AbstractRenderer<BoundingBoxMobSpawner> {
     @Override
-    public void render(BoundingBoxMobSpawner boundingBox) {
+    public void render(MatrixStack matrixStack, BoundingBoxMobSpawner boundingBox) {
         Coords coords = boundingBox.getCoords();
         Color color = boundingBox.getColor();
         OffsetBox bb = ConfigManager.renderMobSpawnerSpawnArea.get() ?

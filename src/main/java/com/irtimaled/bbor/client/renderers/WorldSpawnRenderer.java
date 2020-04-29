@@ -4,12 +4,13 @@ import com.irtimaled.bbor.client.ClientRenderer;
 import com.irtimaled.bbor.common.models.BoundingBoxWorldSpawn;
 import com.irtimaled.bbor.common.models.Coords;
 import com.irtimaled.bbor.config.ConfigManager;
+import net.minecraft.client.util.math.MatrixStack;
 
 import java.awt.*;
 
 public class WorldSpawnRenderer extends AbstractRenderer<BoundingBoxWorldSpawn> {
     @Override
-    public void render(BoundingBoxWorldSpawn boundingBox) {
+    public void render(MatrixStack matrixStack, BoundingBoxWorldSpawn boundingBox) {
         Color color = boundingBox.getColor();
         Coords minCoords = boundingBox.getMinCoords();
         Coords maxCoords = boundingBox.getMaxCoords();

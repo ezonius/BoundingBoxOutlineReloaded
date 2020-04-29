@@ -5,12 +5,13 @@ import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 class CommandHelper {
     static SimpleCommandExceptionType getIncompleteCommandException(String cmd, String... commands) {
-        Text textComponent = new LiteralText("Incomplete command");
+        LiteralText textComponent = new LiteralText("Incomplete command");
 
         int length = commands.length;
         if (length > 0) {
@@ -23,7 +24,7 @@ class CommandHelper {
                 ClickEvent clickEvent = new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, commandSuggestion);
                 Text suggestion = new LiteralText(command)
                         .formatted(Formatting.UNDERLINE)
-                        .styled(style -> style.setClickEvent(clickEvent));
+                        .styled(style -> style.withClickEvent(clickEvent));
                 textComponent.append(suggestion);
             }
             textComponent.append(")");

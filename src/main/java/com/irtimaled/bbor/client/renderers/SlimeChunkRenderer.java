@@ -3,12 +3,13 @@ package com.irtimaled.bbor.client.renderers;
 import com.irtimaled.bbor.client.ClientRenderer;
 import com.irtimaled.bbor.common.models.BoundingBoxSlimeChunk;
 import com.irtimaled.bbor.config.ConfigManager;
+import net.minecraft.client.util.math.MatrixStack;
 
 import java.awt.*;
 
 public class SlimeChunkRenderer extends AbstractRenderer<BoundingBoxSlimeChunk> {
     @Override
-    public void render(BoundingBoxSlimeChunk boundingBox) {
+    public void render(MatrixStack matrixStack, BoundingBoxSlimeChunk boundingBox) {
         OffsetBox bb = new OffsetBox(boundingBox.getMinCoords(), boundingBox.getMaxCoords());
         Color color = boundingBox.getColor();
         renderCuboid(bb, color);

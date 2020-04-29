@@ -22,8 +22,8 @@ public class MixinEntityRenderer {
     private MinecraftClient client;
 
     @Inject(method = "render", at = @At(value = "INVOKE_STRING", target = "Lnet/minecraft/util/profiler/Profiler;swap(Ljava/lang/String;)V", args = "ldc=weather", shift = At.Shift.BEFORE))
-    private void render(MatrixStack ignored_1, float partialTicks, long ignored_2, boolean ignored_3, Camera ignored_4, GameRenderer ignored_5, LightmapTextureManager ignored_6, Matrix4f ignored_7, CallbackInfo ci) {
-        ClientInterop.render(partialTicks, this.client.player);
+    private void render(MatrixStack matrixStack, float partialTicks, long ignored_2, boolean ignored_3, Camera ignored_4, GameRenderer ignored_5, LightmapTextureManager ignored_6, Matrix4f ignored_7, CallbackInfo ci) {
+        ClientInterop.render(matrixStack, partialTicks, this.client.player);
     }
 }
 

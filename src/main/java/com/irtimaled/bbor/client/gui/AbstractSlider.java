@@ -2,6 +2,8 @@ package com.irtimaled.bbor.client.gui;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 
@@ -9,20 +11,20 @@ abstract class AbstractSlider extends AbstractButtonWidget implements IRenderabl
     double progress;
 
     AbstractSlider(int x, int y, int width) {
-        super(x, y, width, 20, "");
+        super(x, y, width, 20, new LiteralText(""));
     }
 
     @Override
-    public void render(int mouseX, int mouseY) {
-        super.render(mouseX, mouseY, 0f);
+    public void render(MatrixStack matrixStack, int mouseX, int mouseY) {
+        super.render(matrixStack, mouseX, mouseY, 0f);
     }
 
     @Override
-    protected void renderBg(MinecraftClient minecraft, int mouseX, int mouseY) {
+    protected void renderBg(MatrixStack matrixStack ,MinecraftClient minecraft, int mouseX, int mouseY) {
         minecraft.getTextureManager().bindTexture(WIDGETS_LOCATION);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.drawTexture(this.x + (int) (this.progress * (double) (this.width - 8)), this.y, 0, 66, 4, 20);
-        this.drawTexture(this.x + (int) (this.progress * (double) (this.width - 8)) + 4, this.y, 196, 66, 4, 20);
+        this.drawTexture(matrixStack,this.x + (int) (this.progress * (double) (this.width - 8)), this.y, 0, 66, 4, 20);
+        this.drawTexture(matrixStack, this.x + (int) (this.progress * (double) (this.width - 8)) + 4, this.y, 196, 66, 4, 20);
     }
 
     boolean setProgress(double progress) {

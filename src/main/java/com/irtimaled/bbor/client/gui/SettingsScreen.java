@@ -10,11 +10,13 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class SettingsScreen extends Screen {
@@ -226,14 +228,14 @@ public class SettingsScreen extends Screen {
     }
 
     @Override
-    public void render(int mouseX, int mouseY, float unknown) {
-        if (this.client.world == null) {
-            this.renderBackground();
+    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float unknown) {
+        if (Objects.requireNonNull(this.client).world == null) {
+            this.renderBackground(matrixStack);
             this.drawScreen(getY(-1), getY(5.5) - 4);
         }
-        this.drawCenteredString(this.textRenderer, title.asString(), this.width / 2, 15, 16777215);
+        this.drawCenteredString(matrixStack, this.textRenderer, title.asString(), this.width / 2, 15, 16777215);
         for (IRenderableControl control : controls) {
-            control.render(mouseX, mouseY);
+            control.render(matrixStack, mouseX, mouseY);
         }
     }
 }

@@ -6,6 +6,7 @@ import com.irtimaled.bbor.client.renderers.*;
 import com.irtimaled.bbor.common.MathHelper;
 import com.irtimaled.bbor.common.models.*;
 import com.irtimaled.bbor.config.ConfigManager;
+import net.minecraft.client.util.math.MatrixStack;
 import org.lwjgl.opengl.GL11;
 
 import java.util.HashMap;
@@ -81,7 +82,7 @@ public class ClientRenderer {
         return boundingBox.intersectsBounds(minX, minZ, maxX, maxZ);
     }
 
-    public static void render(int dimensionId) {
+    public static void render(MatrixStack matrixStack, int dimensionId) {
         if(!active) return;
 
         Set<AbstractBoundingBox> boundingBoxes = getBoundingBoxes(dimensionId);
@@ -101,7 +102,7 @@ public class ClientRenderer {
             AbstractRenderer renderer = boundingBoxRendererMap.get(key.getClass());
             if (renderer == null) continue;
 
-            renderer.render(key);
+            renderer.render(matrixStack, key);
         }
 
         GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
